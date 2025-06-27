@@ -2,8 +2,12 @@ import jwt from "jsonwebtoken";
 
 const authorize = (allowedRoles) => (req, res, next) => {
   // console.log("Cookies in Request:", req.cookies);
+  
+  const bearerToken = req.headers.authorization?.startsWith("Bearer ")
+  ? req.headers.authorization.split(" ")[1]
+  : null;
 
-  const token = req.cookies?.token;
+  const token = req.cookies.token || bearerToken;
 
   if (!token) return res.status(403).json({ message: "Access denied. No token provided." });
 
