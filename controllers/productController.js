@@ -4,22 +4,30 @@ import redis from '../redis.js'; // Assuming you have a redis.js file that expor
 
 const addProduct = async (req, res, next) => {
     try {
-        let imageUrl = req.file ? req.file.path : null; 
+        if (typeof req.body.sizes === 'string') {
+            req.body.sizes = JSON.parse(req.body.sizes);
+        }
+        const images = req.files ? req.files.map(file => file.path) : [];
+        if (images.length === 0) {
+            return res.status(400).json({ message: "No images uploaded" });
+        }
+        req.body.images = images;
 
-        const { productName , description, sku, price, oldPrice, productQuantity, category, rating, status } = req.body;
+        const { name , description, sku, price, category, brand, sizes, color,style } = req.body;
         // console.log("New user :" + JSON.stringify(req.user))
 
         const newProduct = new Product({
-            productName,
-            image: imageUrl,
+            name,
+            images:images,
             description,
             sku,
             price,
-            oldPrice,
-            productQuantity,
             category,
-            rating,
-            status
+            brand,
+            sizes,
+            color,
+            style
+       
         });
         
         await newProduct.save();
@@ -30,7 +38,7 @@ const addProduct = async (req, res, next) => {
         res.status(201).json({ message: "Product added successfully" });
     } catch (err) {
         console.error(`Failed to add Product : ${err}`);
-        // next(err);
+        next(err);
     }
 };
 

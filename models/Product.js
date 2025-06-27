@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
-    productName: {
+    name: {
         type: String,
         required: true,
     },
-    image: {
-        type: String,
-        required: true
-    },
+    images: [
+        {
+            type: String,
+            required: true
+        }
+    ],
     description: {
         type: String,
         required: true
@@ -25,25 +27,58 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum:[
-            "hospital",
-            "education",
-            "lab",
-            "surgical",
-            "biology",
-            "chemistry",
-            "physics"
-        ],
+            "heels",
+            "sneakers",
+            "mule",
+            "sandal",
+            "chelsea",
+            "boat",
+            "oxfords",
+            "loafers",
+            "boots",
+            "clogs",
+            "slippers"
+        ]
     },
-    rating:{
-        type: Number,
-        min: 0,
-        max: 5,
-        required: true
-    },
-    status:{
+    brand:{
         type: String,
-        enum:["new","regular"],
-        required: true
+        required: false,
+        enum:[
+            "Nike",
+            "Adidas",
+            "Puma",
+            "Reebok",
+            "New Balance", 
+            "Converse",
+            "Vans",
+            "Under Armour",
+            "Asics",
+            "Skechers"
+        ]
+    },
+    sizes:[
+        {
+            size:String,
+            countInStock: Number
+        }
+    ],
+    color: {
+        type: String,
+        required: true,
+    },
+    style: {
+        type: String,
+        required: true,
+        enum: [
+            "casual",
+            "formal",
+            "sport",
+            "party",
+            "business",
+            "athletic",
+            "outdoor",
+            "lounge"
+        ]
     }
 }, { timestamps: true });
 

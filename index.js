@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 import errorHandler from './middlewares/errorHandler.js'
 import connectDB from "./dbConfig/dbconfig.js";
 import authRouter from "./routes/authRoutes.js";
