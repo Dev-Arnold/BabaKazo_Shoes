@@ -11,9 +11,9 @@ const signup = async (req, res, next) => {
   // const email_ent = await User.findOne({email});
 
   try {
-    const { firstName, lastName, email, role , password } = req.body;
+    const { fullname, email, role , password } = req.body;
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!fullname || !email || !password) {
       return res.status(404).json({ message: "All fields are required" });
     }
 
@@ -29,8 +29,7 @@ const signup = async (req, res, next) => {
     const hashedpassword = await bcryptjs.hash(password, 10);
 
     const newUser = new User({
-      firstName,
-      lastName,
+      fullname,
       email,
       role,
       password: hashedpassword,
@@ -65,13 +64,13 @@ const signin = async (req, res, next) => {
     const user = await User.findOne({ email });
     console.log(req.body);
     if (!user) {
-      return res.status(400).json({ emailMessage: "User not found" });
+      return res.status(400).json({ message: "User not found" });
     }
 
     const checkpassword = await bcryptjs.compare(password, user.password);
 
     if (!checkpassword) {
-      return res.status(400).json({ passwordMessage: "Incorrect password" });
+      return res.status(400).json({ message: "Incorrect password" });
     }
 
     console.log("Password Match: ", checkpassword);
@@ -80,14 +79,14 @@ const signin = async (req, res, next) => {
       process.env.SECRETKEY,
       { expiresIn: "3d" }
     );
+    console.log("production", process.env.NODE_ENV);
 
     // Set the token as an HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true, // Prevents JavaScript access for security
       secure: process.env.NODE_ENV === "production", // Use true in production (HTTPS required)
-      // secure: true, // Use true in production (HTTPS required)
-      sameSite: "None", // Prevent CSRF attacks
-      // sameSite: "strict", // Prevent CSRF attacks
+      sameSite: process.env.NODE_ENV === "production", // Use true in production (HTTPS required)
+      // secure: true, 
       maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days in ms
     });
 

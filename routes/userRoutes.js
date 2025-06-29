@@ -19,7 +19,7 @@ const userRouter = express.Router();
 
 /**
  * @swagger
- * /users:
+ * /user:
  *   get:
  *     summary: Get all users
  *     tags: [Users]
@@ -35,7 +35,7 @@ userRouter.get("/", authorize(["Admin"]), getUsers);
 
 /**
  * @swagger
- * /users/staff:
+ * /user/staff:
  *   get:
  *     summary: Get all staff users
  *     tags: [Users]
@@ -53,7 +53,7 @@ userRouter.get("/staff", authorize(["Admin"]), getAllStaff);
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   get:
  *     summary: Get user profile by ID
  *     tags: [Users]
@@ -78,7 +78,7 @@ userRouter.get("/:id", authorize(["Admin", "Staff", "User"]), userProfile);
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   put:
  *     summary: Update user by ID
  *     tags: [Users]
@@ -113,7 +113,7 @@ userRouter.put("/:id", authorize(["Admin"]), updateUser);
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   delete:
  *     summary: Delete user by ID
  *     tags: [Users]

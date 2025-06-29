@@ -58,17 +58,23 @@ authRouter.post("/", signup);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - email
+ *               - password
  *             properties:
  *               email:
  *                 type: string
+ *                 example: hassan@gmail.com
  *               password:
  *                 type: string
+ *                 example: hassan
  *     responses:
  *       200:
  *         description: Login successful
  *       401:
  *         description: Invalid credentials
  */
+
 authRouter.post("/login", signin);
 
 /**

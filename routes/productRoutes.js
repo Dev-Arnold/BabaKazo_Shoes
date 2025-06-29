@@ -66,7 +66,7 @@ import authorize from "../middlewares/authorize.js";
 productRouter.post(
   "/",
   upload.array("images", 5),
-  authorize(["Admin", "Staff"]),
+  // authorize(["Admin", "Staff"]),
   addProduct
 );
 
@@ -165,7 +165,8 @@ productRouter.get("/:id", getOneProduct);
  *       500:
  *         description: Server error
  */
-productRouter.put("/:id", authorize(["Admin", "Staff"]), updateOneProduct);
+// productRouter.put("/:id", authorize(["Admin", "Staff"]), updateOneProduct);
+productRouter.put("/:id",  updateOneProduct);
 
 /**
  * @swagger
@@ -190,7 +191,8 @@ productRouter.put("/:id", authorize(["Admin", "Staff"]), updateOneProduct);
  *       500:
  *         description: Server error
  */
-productRouter.delete("/:id", authorize(["Admin"]), delProduct);
+productRouter.delete("/:id",  delProduct);
+// productRouter.delete("/:id", authorize(["Admin"]), delProduct);
 
 /**
  * @swagger
