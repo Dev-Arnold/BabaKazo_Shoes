@@ -165,8 +165,8 @@ productRouter.get("/:id", getOneProduct);
  *       500:
  *         description: Server error
  */
-// productRouter.put("/:id", authorize(["Admin", "Staff"]), updateOneProduct);
-productRouter.put("/:id",  updateOneProduct);
+productRouter.put("/:id", authorize(["Admin", "Staff"]), updateOneProduct);
+// productRouter.put("/:id",  updateOneProduct);
 
 /**
  * @swagger
@@ -191,30 +191,8 @@ productRouter.put("/:id",  updateOneProduct);
  *       500:
  *         description: Server error
  */
-productRouter.delete("/:id",  delProduct);
-// productRouter.delete("/:id", authorize(["Admin"]), delProduct);
+// productRouter.delete("/:id",  delProduct);
+productRouter.delete("/:id", authorize(["Admin"]), delProduct);
 
-/**
- * @swagger
- * /product/category/{category}:
- *   get:
- *     summary: Get products by category
- *     tags: [Products]
- *     parameters:
- *       - in: path
- *         name: category
- *         schema:
- *           type: string
- *         required: true
- *         description: Product category
- *     responses:
- *       200:
- *         description: List of products by category
- *       404:
- *         description: No products found in this category
- *       500:
- *         description: Server error
- */
-productRouter.get("/category/:category", getProductByCategory);
 
 export default productRouter;
