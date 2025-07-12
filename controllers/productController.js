@@ -16,6 +16,21 @@ const addProduct = async (req, res, next) => {
         const { name , description, sku, price, category, brand, sizes, color,style } = req.body;
         // console.log("New user :" + JSON.stringify(req.user))
 
+        if (
+            !name ||
+            !description ||
+            !sku ||
+            !price ||
+            !category ||
+            !brand ||
+            !sizes ||
+            !color ||
+            !style ||
+            !images.length
+        ) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
         const newProduct = new Product({
             name,
             images:images,
