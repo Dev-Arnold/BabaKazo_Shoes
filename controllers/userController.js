@@ -11,7 +11,7 @@ const updateUser = async (req, res, next) => {
 
         res.status(201).json({ message: "User updated successfully!" });
     } catch (err) {
-        console.error(`Failed to update user : ${err}`);
+        console.error(`Failed to update the user : ${err}`);
         next(err);
     }
 }
